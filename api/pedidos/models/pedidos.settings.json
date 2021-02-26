@@ -32,6 +32,21 @@
       "plugin": "users-permissions",
       "model": "user",
       "via": "pedidos"
+    },
+    "NombreClinica": {
+      "type": "string"
+    },
+    "DireccionClinica": {
+      "type": "string"
+    },
+    "CorreoClinica": {
+      "type": "string"
+    },
+    "HorarioClinica": {
+      "type": "string"
+    },
+    "TelefonoClinica": {
+      "type": "integer"
     }
   }
 }

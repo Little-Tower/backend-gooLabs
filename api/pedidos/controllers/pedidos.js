@@ -35,6 +35,8 @@ module.exports = {
 	
         const { producto } = ctx.request.body
 
+	const { clinica } = ctx.request.body
+
 
         if(!producto){
                 return ctx.throw(400, 'Especifique un producto')
@@ -72,13 +74,19 @@ module.exports = {
 	console.log(session.id)
 	
 
+	console.log(clinica)
 
         const newPedido = await strapi.services.pedidos.create({
                 user: user.id,
                 Producto: realProducto.id,
                 Total: realProducto.Precio,
                 Estado: 'SinPagar',
-                chekout_session: session.id
+                chekout_session: session.id,
+		NombreClinica: clinica.Nombre,
+		DireccionClinica: clinica.Direccion,
+		CorreoClinica: clinica.Correo,
+		TelefonoClinica: clinica.Telefono,
+		HorarioClinica: clinica.Horario
         })
 
         return { id: session.id }
