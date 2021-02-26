@@ -23,17 +23,6 @@
     "Comentario": {
       "type": "richtext"
     },
-    "Icono": {
-      "model": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos"
-      ],
-      "plugin": "upload",
-      "required": false
-    },
     "slug": {
       "type": "uid"
     },
@@ -47,8 +36,11 @@
       "type": "richtext"
     },
     "pedidos": {
-      "via": "producto",
-      "collection": "pedidos"
+      "collection": "pedidos",
+      "via": "producto"
+    },
+    "Icono": {
+      "type": "string"
     }
   }
 }
