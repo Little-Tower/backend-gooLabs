@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"},{"v":{"$numberInt":"2"},"unique":true,"key":{"slug":{"$numberInt":"1"}},"name":"slug_1","partialFilterExpression":{"slug":{"$type":"string"}},"background":true}],"uuid":"4be5ab6b586b4883ad74f06182a43889","collectionName":"productos"}
