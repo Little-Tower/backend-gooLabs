@@ -31,7 +31,7 @@ module.exports = {
 
     async create(ctx){
 
-	const BASE_URL = ctx.request.headers.origin || 'http://88.29.61.64:3000'
+	const BASE_URL = ctx.request.headers.origin || 'https://goo-labs.com/'
 	
         const { producto } = ctx.request.body
 
