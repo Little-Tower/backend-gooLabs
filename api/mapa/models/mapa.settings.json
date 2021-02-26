@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "mapas",
+  "info": {
+    "name": "Mapa"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Titulo": {
+      "type": "string"
+    },
+    "Descripcion": {
+      "type": "richtext"
+    },
+    "LinkMapa": {
+      "type": "string"
+    }
+  }
+}

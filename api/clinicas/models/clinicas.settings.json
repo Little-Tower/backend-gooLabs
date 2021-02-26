@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "clinicas",
+  "info": {
+    "name": "Clinicas"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Comunidad": {
+      "type": "string"
+    },
+    "Provincia": {
+      "type": "string"
+    },
+    "Poblacion": {
+      "type": "string"
+    },
+    "Nombre": {
+      "type": "string"
+    },
+    "Direccion": {
+      "type": "string"
+    },
+    "Correo": {
+      "type": "string"
+    },
+    "Telefono": {
+      "type": "integer"
+    },
+    "Horario": {
+      "type": "string"
+    }
+  }
+}

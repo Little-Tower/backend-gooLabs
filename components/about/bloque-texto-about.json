@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_about_bloque_texto_abouts",
+  "info": {
+    "name": "BloqueTextoAbout",
+    "icon": "align-left"
+  },
+  "options": {},
+  "attributes": {
+    "Imagen": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "Titulo": {
+      "type": "string"
+    },
+    "Contenido": {
+      "type": "richtext"
+    }
+  }
+}

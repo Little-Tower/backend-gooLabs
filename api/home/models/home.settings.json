@@ -1,0 +1,36 @@
+{
+  "kind": "singleType",
+  "collectionName": "homes",
+  "info": {
+    "name": "Home",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "meta_title": {
+      "type": "string"
+    },
+    "meta_description": {
+      "type": "string"
+    },
+    "Datos": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.dato"
+    },
+    "TextoCertificado": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.texto-certificado"
+    },
+    "TextoSubProdutos": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.texto-sub-produtos"
+    }
+  }
+}

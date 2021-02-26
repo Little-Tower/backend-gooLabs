@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_home_texto_certificados",
+  "info": {
+    "name": "TextoCertificado",
+    "icon": "align-center"
+  },
+  "options": {},
+  "attributes": {
+    "Titulo": {
+      "type": "string"
+    },
+    "Descripcion": {
+      "type": "richtext"
+    },
+    "Icono": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    }
+  }
+}

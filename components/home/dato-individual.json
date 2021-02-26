@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_home_dato_individuals",
+  "info": {
+    "name": "DatoIndividual",
+    "icon": "record-vinyl"
+  },
+  "options": {},
+  "attributes": {
+    "Icono": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "Titulo": {
+      "type": "string"
+    },
+    "Descripcion": {
+      "type": "richtext"
+    }
+  }
+}

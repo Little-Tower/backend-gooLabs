@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/dudas",
+      "handler": "dudas.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/dudas",
+      "handler": "dudas.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/dudas",
+      "handler": "dudas.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_home_datoes",
+  "info": {
+    "name": "Dato",
+    "icon": "check",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "DatoIndividual": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.dd"
+    }
+  }
+}

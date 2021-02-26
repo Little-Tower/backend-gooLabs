@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pedidos",
+  "info": {
+    "name": "Pedido",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Estado": {
+      "type": "enumeration",
+      "enum": [
+        "Pagado",
+        "SinPagar"
+      ]
+    },
+    "Total": {
+      "type": "decimal"
+    },
+    "chekout_session": {
+      "type": "string"
+    },
+    "producto": {
+      "model": "productos",
+      "via": "pedidos"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "pedidos"
+    }
+  }
+}

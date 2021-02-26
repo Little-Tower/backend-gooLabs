@@ -1,0 +1,19 @@
+{
+  "kind": "singleType",
+  "collectionName": "dudas",
+  "info": {
+    "name": "Dudas"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BloqueDuda": {
+      "type": "component",
+      "repeatable": true,
+      "component": "dudas.bloque-dudas"
+    }
+  }
+}

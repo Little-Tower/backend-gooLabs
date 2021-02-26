@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_dudas_bloque_dudas",
+  "info": {
+    "name": "BloqueDuda",
+    "icon": "comments",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Pregunta": {
+      "type": "string"
+    },
+    "Respuesta": {
+      "type": "richtext"
+    }
+  }
+}
