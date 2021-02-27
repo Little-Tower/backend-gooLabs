@@ -93,19 +93,24 @@ module.exports = {
      },
 
      async confirm(ctx) {
-	const { check_session } = ctx.request.body
-	console.log(ctx.request.body)     
-	const session = await stripe.checkout.sessions.retrieve(check_session)
+	const { chekout_session } = ctx.request.body
+	console.log(chekout_session)     
+	const session = await stripe.checkout.sessions.retrieve(chekout_session)
 	
 	if (session.payment_status === 'paid'){
 		const updatePedido = await strapi.services.pedidos.update({
-			check_session
+			chekout_session
 		},
 		{
 			Estado: 'Pagado'
 		})
 
-		return sanitizeEntity(updatePedido, {model: strapi.models.pedidos})
+		const NPedido = await strapi.services.pedidos.findOne({ chekout_session: chekout_session })
+
+		console.log(NPedido)
+
+		return sanitizeEntity(NPedido, {model: strapi.models.pedidos})
+
 	} else{
 		ctx.throw(400, 'Pago no correcto, contacte para obtener ayuda')
 	}
