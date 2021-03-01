@@ -25,8 +25,8 @@
       "type": "string"
     },
     "producto": {
-      "via": "pedidos",
-      "model": "productos"
+      "model": "productos",
+      "via": "pedidos"
     },
     "user": {
       "plugin": "users-permissions",
@@ -47,6 +47,9 @@
     },
     "TelefonoClinica": {
       "type": "integer"
+    },
+    "CorreoEnviado": {
+      "type": "boolean"
     }
   }
 }

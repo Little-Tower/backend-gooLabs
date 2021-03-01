@@ -86,7 +86,8 @@ module.exports = {
 		DireccionClinica: clinica.Direccion,
 		CorreoClinica: clinica.Correo,
 		TelefonoClinica: clinica.Telefono,
-		HorarioClinica: clinica.Horario
+		HorarioClinica: clinica.Horario,
+		CorreoEnviado: false
         })
 
         return { id: session.id }
@@ -118,14 +119,29 @@ module.exports = {
 
     async mail(ctx){
        const { mail_to } = ctx.request.body
-       const { pedido_id  } = ctx.request.body
-       const mailer = await strapi.plugins['email'].services.email.send({
-	       to: mail_to,
-	       from: "contacto@goo-labs.com",
-	       replyTo: "contacto@goo-labs.com",
-	       subject: "Identificador de prueba",
-	       text: `Identificador de prueba: ${pedido_id}`
-       })	       
-	ctx.send('Email enviado')    
+       const { pedido_id } = ctx.request.body
+       const { pedido } = ctx.request.body
+       console.log(pedido.CorreoEnviado)
+
+       if ( pedido.CorreoEnviado === false  ) {
+	    const mailer = await strapi.plugins['email'].services.email.send({
+	         to: mail_to,
+	      	 from: "contacto@goo-labs.com",
+	         replyTo: "contacto@goo-labs.com",
+	         subject: "Identificador de prueba",
+	         text: `Identificador de prueba: ${pedido_id}`
+	       })	       
+	    ctx.send('Email enviado')
+
+	    const chekout_session = pedido.chekout_session
+
+	    const updatePedidoDos = await strapi.services.pedidos.update({
+		   chekout_session
+	    },
+	    {
+		   CorreoEnviado: true
+	    })   
+	}
+
     }
 };

@@ -36,8 +36,8 @@
       "type": "richtext"
     },
     "pedidos": {
-      "collection": "pedidos",
-      "via": "producto"
+      "via": "producto",
+      "collection": "pedidos"
     },
     "Icono": {
       "type": "string"
