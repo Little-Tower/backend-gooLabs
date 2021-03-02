@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_home_headers",
+  "info": {
+    "name": "Header",
+    "icon": "archway",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "TituloPrincipal": {
+      "type": "string"
+    },
+    "SubTitulo": {
+      "type": "text"
+    }
+  }
+}

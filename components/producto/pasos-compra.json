@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_producto_pasos_compras",
+  "info": {
+    "name": "PasosCompra",
+    "icon": "spell-check"
+  },
+  "options": {},
+  "attributes": {
+    "PasoUno": {
+      "type": "string"
+    },
+    "TextoPasoUno": {
+      "type": "richtext"
+    },
+    "PasoDos": {
+      "type": "string"
+    },
+    "TextoPasoDos": {
+      "type": "richtext"
+    },
+    "PasoTres": {
+      "type": "string"
+    },
+    "TextoPasoTres": {
+      "type": "richtext"
+    }
+  }
+}

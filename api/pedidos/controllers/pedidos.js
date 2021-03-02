@@ -129,7 +129,11 @@ module.exports = {
 	      	 from: "contacto@goo-labs.com",
 	         replyTo: "contacto@goo-labs.com",
 	         subject: "Identificador de prueba",
-	         text: `Identificador de prueba: ${pedido_id}`
+	         text: `Querido cliente: \nGracias por hacer su comprar en Goo-Labs.\n \nEl identificador de prueba es: ${pedido_id},\npara la clínica ${pedido.NombreClinica} - ${pedido.DireccionClinica}.
+		    \nAntes de ir a la clínica, recuerde ${pedido.HorarioClinica}. Puede poner en contacto con la clínica llamado al ${pedido.TelefonoClinica}.
+		    \n \n Imprima o tenga a mano este correo antes de acudir a su clínica, ya que sus datos serán comprobados.Recuerdo que no tiene que abonar NADA más para adquirir su prueba.
+		    \n \n \n Para cualquier información extra o algún tipo de problema, puede contactarnos al correo contacto@goo-labs.com.
+		    \n Un saludo, el equipo de Goo-Labs.`
 	       })	       
 	    ctx.send('Email enviado')
 

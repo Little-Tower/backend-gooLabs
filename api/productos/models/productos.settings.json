@@ -36,11 +36,16 @@
       "type": "richtext"
     },
     "pedidos": {
-      "via": "producto",
-      "collection": "pedidos"
+      "collection": "pedidos",
+      "via": "producto"
     },
     "Icono": {
       "type": "string"
+    },
+    "PasosCompra": {
+      "type": "component",
+      "repeatable": false,
+      "component": "producto.pasos-compra"
     }
   }
 }

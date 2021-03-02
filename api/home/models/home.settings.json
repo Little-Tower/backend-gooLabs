@@ -31,6 +31,11 @@
       "type": "component",
       "repeatable": false,
       "component": "home.texto-sub-produtos"
+    },
+    "Header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.header"
     }
   }
 }
