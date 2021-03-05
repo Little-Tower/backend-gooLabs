@@ -37,6 +37,10 @@ module.exports = {
 
 	const { clinica } = ctx.request.body
 
+	const { nombreCliente } = ctx.request.body
+
+	const { dniCliente } = ctx.request.body
+
 
         if(!producto){
                 return ctx.throw(400, 'Especifique un producto')
@@ -87,7 +91,9 @@ module.exports = {
 		CorreoClinica: clinica.Correo,
 		TelefonoClinica: clinica.Telefono,
 		HorarioClinica: clinica.Horario,
-		CorreoEnviado: false
+		CorreoEnviado: false,
+		NombreCliente: nombreCliente,
+		DniCliente: dniCliente,
         })
 
         return { id: session.id }
@@ -131,7 +137,7 @@ module.exports = {
 	         subject: "Identificador de prueba",
 	         text: `Querido cliente: \nGracias por hacer su comprar en Goo-Labs.\n \nEl identificador de prueba es: ${pedido_id},\npara la clínica ${pedido.NombreClinica} - ${pedido.DireccionClinica}.
 		    \nAntes de ir a la clínica, recuerde ${pedido.HorarioClinica}. Puede poner en contacto con la clínica llamado al ${pedido.TelefonoClinica}.
-		    \n \n Imprima o tenga a mano este correo antes de acudir a su clínica, ya que sus datos serán comprobados.Recuerdo que no tiene que abonar NADA más para adquirir su prueba.
+		    \n \n Imprima o tenga a mano este correo antes de acudir a su clínica, ya que sus datos serán comprobados.Recuerde que no tiene que abonar NADA más para adquirir su prueba.
 		    \n \n \n Para cualquier información extra o algún tipo de problema, puede contactarnos al correo contacto@goo-labs.com.
 		    \n Un saludo, el equipo de Goo-Labs.`
 	       })	       
