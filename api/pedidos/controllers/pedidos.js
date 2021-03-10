@@ -1,8 +1,49 @@
 'use strict';
 const { sanitizeEntity } = require('strapi-utils')
 const stripe = require('stripe')(process.env.STRIPE_PK)
+const puppeteer = require('puppeteer')
+const fs = require('fs-extra')
+const hbs = require('handlebars')
+const path = require('path')
 
 const fromDecimalToInt = (number) => parseInt( number*100)
+
+const compile = async (templateName, pedido) => {
+	const filePath = path.join(process.cwd(), 'templates', `${templateName}.hbs`)
+	const html = await fs.readFile(filePath, 'utf-8')
+	return hbs.compile(html)(pedido)
+}
+
+
+const creadorPdf = async  ({ pedido, mombreArchivo  }) => {
+	try{
+		const browser = await puppeteer.launch({
+			executablePath: '/usr/bin/chromium-browser',
+			headless: true,
+  			args: ['--no-sandbox'],
+			ignoreDefaultArgs: ['--disable-extensions']
+		  })
+		const page = await browser.newPage()
+
+		const content = await compile('tm-pdf', pedido)
+		
+		await page.emulateMedia('screen')
+		await page.pdf({
+			path: `${nombreArchivo}.pdf`,
+			format: 'A4',
+			printBackground: true
+		})
+
+		console.log('Pdf creado')
+		await browser.close()
+		process.exit()
+	}catch (e) {
+		console.log('Error pdf',e)
+	}
+
+}
+
+
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/concepts/controllers.html#core-controllers)
  * to customize this controller
@@ -128,14 +169,16 @@ module.exports = {
        const { pedido_id } = ctx.request.body
        const { pedido } = ctx.request.body
        console.log(pedido.CorreoEnviado)
+       const nombreArchivo = pedido_id.substring(0,10)	    
 
        if ( pedido.CorreoEnviado === false  ) {
+	    const bonus = await creadorPdf(pedido, nombreArchivo)
 	    const mailer = await strapi.plugins['email'].services.email.send({
 	         to: mail_to,
 	      	 from: "contacto@goo-labs.com",
 	         replyTo: "contacto@goo-labs.com",
 	         subject: "Identificador de prueba",
-	         text: `Querido cliente: \nGracias por hacer su comprar en Goo-Labs.\n \nEl identificador de prueba es: ${pedido_id},\npara la clínica ${pedido.NombreClinica} - ${pedido.DireccionClinica}.
+	         text: `Querido cliente: \nGracias por hacer su comprar en Goo-Labs.\n \nEl identificador de prueba es: ${nombreArchivo},\npara la clínica ${pedido.NombreClinica} - ${pedido.DireccionClinica}.
 		    \nAntes de ir a la clínica, recuerde ${pedido.HorarioClinica}. Puede poner en contacto con la clínica llamado al ${pedido.TelefonoClinica}.
 		    \n \n Imprima o tenga a mano este correo antes de acudir a su clínica, ya que sus datos serán comprobados.Recuerde que no tiene que abonar NADA más para adquirir su prueba.
 		    \n \n \n Para cualquier información extra o algún tipo de problema, puede contactarnos al correo contacto@goo-labs.com.

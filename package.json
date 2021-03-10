@@ -12,6 +12,9 @@
   "devDependencies": {},
   "dependencies": {
     "@sendgrid/mail": "^7.4.2",
+    "fs-extra": "^9.1.0",
+    "handlebars": "^4.7.7",
+    "puppeteer": "^8.0.0",
     "strapi": "3.4.6",
     "strapi-admin": "3.4.6",
     "strapi-connector-mongoose": "3.4.6",
