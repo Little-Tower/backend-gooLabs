@@ -1,44 +1,41 @@
 'use strict';
 const { sanitizeEntity } = require('strapi-utils')
 const stripe = require('stripe')(process.env.STRIPE_PK)
-const puppeteer = require('puppeteer')
 const fs = require('fs-extra')
 const hbs = require('handlebars')
 const path = require('path')
+const pdf = require('html-pdf')
 
 const fromDecimalToInt = (number) => parseInt( number*100)
 
 const compile = async (templateName, pedido) => {
-	const filePath = path.join(process.cwd(), 'templates', `${templateName}.hbs`)
-	const html = await fs.readFile(filePath, 'utf-8')
-	return hbs.compile(html)(pedido)
+	const html = await fs.readFileSync( path.join(__dirname, `./templates/${templateName}.hbs`)  , 'utf-8')
+	const template = hbs.compile(html)
+	return template(pedido)
 }
 
 
-const creadorPdf = async  ({ pedido, mombreArchivo  }) => {
+const creadorPdf = async  ( pedido, nombreArchivo  ) => {
 	try{
-		const browser = await puppeteer.launch({
-			executablePath: '/usr/bin/chromium-browser',
-			headless: true,
-  			args: ['--no-sandbox'],
-			ignoreDefaultArgs: ['--disable-extensions']
-		  })
-		const page = await browser.newPage()
-
 		const content = await compile('tm-pdf', pedido)
 		
-		await page.emulateMedia('screen')
-		await page.pdf({
-			path: `${nombreArchivo}.pdf`,
-			format: 'A4',
-			printBackground: true
+		const options = {
+			format: "A4",
+			orientation: "portrait",
+			border: "0", 
+			phantomArgs: ["--web-security=false","--local-to-remote-url-access=true"],  
+		}
+
+		const pdfPromise = pdf.create( content , options  )
+
+		pdfPromise.toFile( path.join(__dirname,`./${nombreArchivo}.pdf`), function(err, res) {
+ 			 if (err) return console.log(err);
+			 console.log(res);
 		})
 
-		console.log('Pdf creado')
-		await browser.close()
-		process.exit()
+		console.log('---- Pdf creado ---')
 	}catch (e) {
-		console.log('Error pdf',e)
+		console.log('Error pdf --- :',e)
 	}
 
 }
@@ -116,10 +113,6 @@ module.exports = {
                 ],
         })
 
-	console.log(session.id)
-	
-
-	console.log(clinica)
 
         const newPedido = await strapi.services.pedidos.create({
                 user: user.id,
@@ -127,22 +120,22 @@ module.exports = {
                 Total: realProducto.Precio,
                 Estado: 'SinPagar',
                 chekout_session: session.id,
-		NombreClinica: clinica.Nombre,
-		DireccionClinica: clinica.Direccion,
-		CorreoClinica: clinica.Correo,
-		TelefonoClinica: clinica.Telefono,
-		HorarioClinica: clinica.Horario,
-		CorreoEnviado: false,
-		NombreCliente: nombreCliente,
-		DniCliente: dniCliente,
+				NombreClinica: clinica.Nombre,
+				DireccionClinica: clinica.Direccion,
+				CorreoClinica: clinica.Correo,
+				TelefonoClinica: clinica.Telefono,
+				HorarioClinica: clinica.Horario,
+				CorreoEnviado: false,
+				NombreCliente: nombreCliente,
+				DniCliente: dniCliente,
+				NombreProducto: realProducto.Nombre,
         })
 
         return { id: session.id }
      },
 
      async confirm(ctx) {
-	const { chekout_session } = ctx.request.body
-	console.log(chekout_session)     
+	const { chekout_session } = ctx.request.body  
 	const session = await stripe.checkout.sessions.retrieve(chekout_session)
 	
 	if (session.payment_status === 'paid'){
@@ -169,10 +162,20 @@ module.exports = {
        const { pedido_id } = ctx.request.body
        const { pedido } = ctx.request.body
        console.log(pedido.CorreoEnviado)
-       const nombreArchivo = pedido_id.substring(0,10)	    
+       const nombreArchivo = pedido_id.substring(0,10)
+	   
+	   pedido.nombreArchivo = nombreArchivo
+	   pedido.logo = 'https://storage.googleapis.com/imagenes_goo_labs/Goolabs%20-%20AAFF.005.jpg'
+	   pedido.logoEuro = 'https://storage.googleapis.com/imagenes_goo_labs/eurofins.png'
+
+	   creadorPdf(pedido, nombreArchivo)
+       
 
        if ( pedido.CorreoEnviado === false  ) {
-	    const bonus = await creadorPdf(pedido, nombreArchivo)
+
+		const pathToAttachment = `${__dirname}/${nombreArchivo}.pdf`;
+		const attachment = fs.readFileSync(pathToAttachment).toString("base64");
+	    
 	    const mailer = await strapi.plugins['email'].services.email.send({
 	         to: mail_to,
 	      	 from: "contacto@goo-labs.com",
@@ -182,9 +185,16 @@ module.exports = {
 		    \nAntes de ir a la clínica, recuerde ${pedido.HorarioClinica}. Puede poner en contacto con la clínica llamado al ${pedido.TelefonoClinica}.
 		    \n \n Imprima o tenga a mano este correo antes de acudir a su clínica, ya que sus datos serán comprobados.Recuerde que no tiene que abonar NADA más para adquirir su prueba.
 		    \n \n \n Para cualquier información extra o algún tipo de problema, puede contactarnos al correo contacto@goo-labs.com.
-		    \n Un saludo, el equipo de Goo-Labs.`
-	       })	       
-	    ctx.send('Email enviado')
+		    \n Un saludo, el equipo de Goo-Labs.`,
+	    	attachments: [
+			{ 
+				content: attachment,
+				filename: `${nombreArchivo}.pdf`,
+				type: "application/pdf",
+				disposition: "attachment"
+			}
+			]
+	    })
 
 	    const chekout_session = pedido.chekout_session
 
@@ -193,7 +203,9 @@ module.exports = {
 	    },
 	    {
 		   CorreoEnviado: true
-	    })   
+	    })
+		
+		ctx.send('Email enviado')
 	}
 
     }

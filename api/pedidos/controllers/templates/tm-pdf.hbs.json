@@ -1,0 +1,11 @@
+{
+  "pedido": {
+    "NombreClinica ": "",
+    "producto": {
+      "Nombre ": ""
+    },
+    "NombreCliente ": "",
+    "DniCliente ": "",
+    "id ": ""
+  }
+}

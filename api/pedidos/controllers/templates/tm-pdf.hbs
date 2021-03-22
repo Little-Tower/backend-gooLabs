@@ -1,119 +1,144 @@
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                background-color: #ffffff;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            }
 
-    .bloque_color_azul {
-        background-color: #446df6;
-        height: 80px;
-        width: 100%;
-    }
+            .bloque_color_azul {
+                background-color: #446df6;
+                height: 20px;
+                width: 100%;
+            }
 
-    .texto_principal {
-        width: 100%;
-    }
+            .texto_principal {
+                width: 100%;
+            }
 
-    .texto_titulo {
-        margin-top: 50px;
-        display: flex;
-        justify-content: center;
-    }
+            .texto_titulo {
+                margin-left: 75px;
+                margin-top: 25px;
+                display: flex;
+                justify-content: center;
+            }
 
-    .texto_contenedor {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        width: 70%;
-        margin: auto;
-    }
+            .texto_titulo h1{
+                 font-size: 19px;
+            }
 
-    .texto_datos_cliente {
-        margin-top: 100px;
-        display: flex;
-        justify-content: left;
-        flex-direction: column;
-    }
+            .texto_contenedor {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                width: 70%;
+                margin: auto;
+            }
 
-    .texto_datos_cliente h3 {
-        margin-bottom: 10px;
-    }
+            .texto_datos_cliente {
+                margin-top: 50px;
+                display: flex;
+                justify-content: left;
+                flex-direction: column;
+            }
 
-    .texto_aclarativo {
-        margin-top: 70px;
-    }
+            .texto_datos_cliente h3 {
+                font-size: 15px;
+                margin-bottom: 10px;
+            }
 
-    .texto_codigo_prueba {
-        margin: auto;
-    }
+            .texto_aclarativo {
+                font-size: 10px;
+                margin-top: 35px;
+            }
 
-    .texto_codigo_prueba h2 {
-        border: 1px solid #446df6;
-        padding: 10px;
-        margin-top: 100px;
-    }
+            .texto_codigo_prueba {
+                display: flex;
+                justify-content: center;
+                font-size: 16px;
+                margin: auto;
+            }
 
-    .img_final {
-        margin-top: 100px;
-        margin-bottom: 50px;
-        display: flex;
-        justify-content: center;
-    }
+            .texto_codigo_prueba h2 {
+                border: 1px solid #446df6;
+                padding: 10px;
+                margin-top: 40px;
+            }
 
-    .img_inicio {
-        margin-top: 100px;
-        margin-bottom: 50px;
-        display: flex;
-        justify-content: left;
-        padding-left: 200px;
-    }
+            .img_final {
+                margin-top: 50px;
+                margin-bottom: 10px;
+                display: flex;
+                justify-content: center;
+            }
 
-    .img_inicio {
-        width: 25%;
-    }
-</style>
+            .img_final img{
+                height: 25%;
+                width: 25%;
+            }
 
-<body>
-    <div class="bloque_color_azul"></div>
-    <div class="texto_principal">
-        <div class="img_inicio">
-            <img src="goolabs.png" />
+            .img_inicio {
+                margin-top: 5px;
+                margin-bottom: 40px;
+                width: 40%;
+                display: flex;
+                justify-content: left;
+                padding-left: 40px;
+            }
+
+             .img_inicio img{
+                height: 80%;
+                width: 80%;
+            }
+
+           
+        </style>
+    </head>
+
+    <body>
+        <div class="bloque_color_azul"></div>
+        <div class="texto_principal">
+            <div class="img_inicio">
+                <img src={{logo}} />
+            </div>
+            <div class="texto_titulo">
+                <h1>Acreditación de prueba</h1>
+            </div>
+
+            <div class="texto_contenedor">
+                <div class="texto_datos_cliente">
+                    <h3>Clínica: {{NombreClinica}}</h3>
+                    <h3>Tipo de prueba: {{NombreProducto}}</h3>
+                    <h3>Nombre: {{NombreCliente}}</h3>
+                    <h3>Dni: {{DniCliente}}</h3>
+                    <h3>Código de procedencia: 29935</h3>
+                </div>
+
+                <div class="texto_aclarativo">
+                    <p>La persona portadora de este documento a adquirido un análisis que corresponde a la identificación de
+                        abajo. El paciente no tendrá que abonar la prueba:</p>
+                </div>
+
+                <div class="texto_codigo_prueba">
+                    <h2>{{nombreArchivo}}</h2>
+                </div>
+
+                <div class="texto_aclarativo">
+                    <p>Debe mostrar este documento con el identificador a la persona que le atienda en la clínica a la que
+                        haya asistido para que verifique si prueba.</p>
+                    <br />
+                    <p>En caso de algún error en este proceso, póngase en contacto con nosotros en el correo
+                        contacto@goo-labs.com .</p>
+                </div>
+
+                <div class="img_final">
+                    <img src={{logoEuro}} />
+                </div>
+            </div>
         </div>
-        <div class="texto_titulo">
-            <h1>Acreditación de prueba</h1>
         </div>
-
-        <div class="texto_contenedor">
-            <div class="texto_datos_cliente">
-                <h3>Clínica: {{ pedido.NombreClinica  }}</h3>
-                <h3>Tipo de prueba: {{ pedido.producto.Nombre  }}</h3>
-                <h3>Nombre: {{ pedido.NombreCliente  }}</h3>
-                <h3>Dni: {{ pedido.DniCliente  }}</h3>
-                <h3>Código de procedencia: 29935</h3>
-            </div>
-
-            <div class="texto_aclarativo">
-                <p>La persona portadora de este documento a adquirido un análisis que corresponde a la identificación de
-                    abajo. El paciente no tendrá que abonar la prueba:</p>
-            </div>
-
-            <div class="texto_codigo_prueba">
-                <h2>{{ pedido.id  }}</h2>
-            </div>
-
-            <div class="texto_aclarativo">
-                <p>Debe mostrar este documento con el identificador a la persona que le atienda en la clínica a la que
-                    haya asistido para que verifique si prueba.</p>
-                <br />
-                <p>En caso de algún error en este proceso, póngase en contacto con nosotros en el correo
-                    contacto@goo-labs.com</p>
-            </div>
-
-            <div class="img_final">
-                <img src="megaeuro.png" />
-            </div>
-        </div>
-    </div>
-    </div>
-</body>
+    </body>
+</html>
